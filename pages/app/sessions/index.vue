@@ -64,6 +64,11 @@
                     label="Time practicing"
                     :value="formatSecondDurationAbove(cardData.timePracticing)"
                 />
+                <BaseDataCard
+                    icon="i-tabler-target-arrow"
+                    label="Goal"
+                    :value="`${cardData.reviewsOnPeriod}/${reviewsPerDayGoal} (${formatNumber(cardData.reviewsOnPeriod / (reviewsPerDayGoal > 0 ? reviewsPerDayGoal : 1) * 100)}%)`"
+                />
             </template>
         </div>
         <UTable
@@ -139,6 +144,8 @@ const pagination = reactive({
         direction: "desc" as PaginationOrder
     },
 });
+
+const reviewsPerDayGoal = authStore.getSetting<number>("reviews_per_day_goal");
 
 // Lifecycle hooks
 onMounted(async () =>

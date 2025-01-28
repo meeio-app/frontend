@@ -40,6 +40,18 @@
             </SettingsParameterEntry>
 
             <SettingsParameterEntry
+                label="Reviews per day goal"
+                caption="Reach your goal by reviewing flashcards daily"
+            >
+                <UInput
+                    v-model="reviewsPerDayGoal"
+                    type="number"
+                    size="md"
+                    @change="updateReviewsPerDayGoal"
+                />
+            </SettingsParameterEntry>
+
+            <SettingsParameterEntry
                 label="Display session introduction"
                 caption="Show the introduction modal before starting a new session"
             >
@@ -101,6 +113,9 @@ const updatePagination = async () => await setSetting("items_per_page", itemsPer
 
 const flashcardsPerSession = ref(authStore.getSetting<number>("flashcard_per_session"));
 const updateFlashcardsPerSession = useDebounceFn(async () => await setSetting("flashcard_per_session", flashcardsPerSession.value), 1000);
+
+const reviewsPerDayGoal = ref(authStore.getSetting<number>("reviews_per_day_goal"));
+const updateReviewsPerDayGoal = useDebounceFn(async () => await setSetting("reviews_per_day_goal", reviewsPerDayGoal.value), 1000);
 
 const showSessionIntroduction = ref(authStore.getSetting<boolean>("show_session_introduction"));
 const updateShowSessionIntroduction = async () => await setSetting("show_session_introduction", showSessionIntroduction.value);
