@@ -1,5 +1,5 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Filter, Pagination } from "~/types/core";
+import type { Filter, Pagination, Streak } from "~/types/core";
 import type { SessionCountCriteria } from "~/types/countCriteria";
 import type { Period } from "~/types/period";
 import type { Session } from "~/types/entity";
@@ -33,6 +33,20 @@ export class SessionRepository extends AbstractRepository
                 ...(period?.from ? { from: period.from } : {}),
                 ...(period?.from ? { to: period.to } : {}),
             }
+        });
+    }
+
+    async getStreak()
+    {
+        return this.fetch<Streak>(`/sessions/streak`, {
+            method: "GET",
+        });
+    }
+
+    async getTotalTimeInPractice()
+    {
+        return this.fetch<number>(`/sessions/practice-time`, {
+            method: "GET",
         });
     }
 }
