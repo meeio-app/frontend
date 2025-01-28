@@ -2,11 +2,11 @@
     <section class="py-4 lg:py-6 flex flex-col gap-y-6">
         <div class="px-4 lg:px-6 flex flex-col sm:flex-row justify-end gap-x-3 gap-y-2">
             <UButton
-                v-if="practiceStore.session"
-                :label="practiceStore.hasNextFlashcard ? 'Finish last session' : 'Previous session results'"
+                v-if="showPreviousButton"
+                :label="previousButtonLabel"
                 variant="ghost"
                 color="gray"
-                :icon="practiceStore.hasNextFlashcard ? 'i-tabler-arrow-forward-up' : 'i-tabler-star'"
+                :icon="previousButtonIcon"
                 :to="{ name: 'practice' }"
             />
             <UButton
@@ -21,7 +21,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 px-4 lg:px-6">
             <template v-if="cardData.loading">
                 <USkeleton
-                    v-for="i in 4"
+                    v-for="i in 8"
                     :key="i"
                     class="h-[84px]"
                 />
@@ -46,6 +46,18 @@
                     icon="i-tabler-clock-pin"
                     label="Total reviews today"
                     :value="cardData.reviewsOnPeriod"
+                />
+                <BaseDataCard
+                    icon="i-tabler-calendar-repeat"
+                    label="Current streak"
+                    :info="cardData.streak.isDanger ? `If you don't practice by the end of the day, your streak will be reset.` : undefined"
+                    info-icon="i-tabler-alert-triangle"
+                    :value="cardData.streak.current"
+                />
+                <BaseDataCard
+                    icon="i-tabler-calendar-week"
+                    label="Longest streak"
+                    :value="cardData.streak.longest"
                 />
             </template>
         </div>
@@ -83,7 +95,7 @@
 
 <script lang="ts" setup>
 import { DateTime } from "luxon";
-import type { PaginationOrder } from "~/types/core";
+import type { PaginationOrder, Streak } from "~/types/core";
 import type { Session } from "~/types/entity";
 
 definePageMeta({
@@ -109,7 +121,8 @@ const provider = reactive({
 const cardData = reactive({
     loading: true,
     sessionsOnPeriod: 0,
-    reviewsOnPeriod: 0
+    reviewsOnPeriod: 0,
+    streak: {} as Streak
 });
 
 const itemsPerPage = authStore.getSetting<number>("items_per_page");
@@ -130,6 +143,10 @@ onMounted(async () =>
     ]);
 });
 
+const showPreviousButton = computed<boolean>(() => !!practiceStore.session);
+const previousButtonLabel = computed<string>(() => practiceStore.hasNextFlashcard ? "Finish last session" : "Previous session results");
+const previousButtonIcon = computed<string>(() => practiceStore.hasNextFlashcard ? "i-tabler-arrow-forward-up" : "i-tabler-star");
+
 const executeStartSession = async () =>
 {
     try
@@ -149,13 +166,14 @@ const loadCards = async () =>
     {
         cardData.loading = true;
 
-        [cardData.sessionsOnPeriod, cardData.reviewsOnPeriod] = await Promise.all([
+        [cardData.sessionsOnPeriod, cardData.reviewsOnPeriod, cardData.streak] = await Promise.all([
             repository.session.count("all", {
                 from: DateTime.now().startOf("day").toISO(),
             }),
             repository.review.count("all", {
                 from: DateTime.now().startOf("day").toISO(),
-            })
+            }),
+            repository.session.getStreak()
         ]);
     }
     finally

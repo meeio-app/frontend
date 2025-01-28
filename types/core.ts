@@ -25,3 +25,9 @@ export type Filter = {
     operator: Operator;
     value: unknown;
 };
+
+export type Streak = {
+    current: number;
+    longest: number;
+    isDanger: boolean;
+};
