@@ -1,5 +1,4 @@
 import type { SettingName } from "./settings";
-import type { BadgeColor } from "#ui/types";
 
 export type Role = "ROLE_USER" | "ROLE_ADMIN" | "ROLE_PREMIUM";
 
