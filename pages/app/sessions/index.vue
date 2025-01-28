@@ -59,6 +59,11 @@
                     label="Longest streak"
                     :value="cardData.streak.longest"
                 />
+                <BaseDataCard
+                    icon="i-tabler-stopwatch"
+                    label="Time practicing"
+                    :value="formatSecondDurationAbove(cardData.timePracticing)"
+                />
             </template>
         </div>
         <UTable
@@ -122,6 +127,7 @@ const cardData = reactive({
     loading: true,
     sessionsOnPeriod: 0,
     reviewsOnPeriod: 0,
+    timePracticing: 0,
     streak: {} as Streak
 });
 
@@ -166,14 +172,15 @@ const loadCards = async () =>
     {
         cardData.loading = true;
 
-        [cardData.sessionsOnPeriod, cardData.reviewsOnPeriod, cardData.streak] = await Promise.all([
+        [cardData.sessionsOnPeriod, cardData.reviewsOnPeriod, cardData.streak, cardData.timePracticing] = await Promise.all([
             repository.session.count("all", {
                 from: DateTime.now().startOf("day").toISO(),
             }),
             repository.review.count("all", {
                 from: DateTime.now().startOf("day").toISO(),
             }),
-            repository.session.getStreak()
+            repository.session.getStreak(),
+            repository.session.getTotalTimeInPractice()
         ]);
     }
     finally
