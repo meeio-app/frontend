@@ -30,7 +30,7 @@ export type Unit = {
     updatedAt: string;
     description: string;
     favorite: boolean;
-    topic: Topic;
+    topic: Topic | number;
 };
 
 export type State = 0 | 1;
@@ -51,7 +51,7 @@ export type Flashcard = {
     state: State;
     difficulty: number | null;
     stability: number | null;
-    unit: Unit;
+    unit: Unit | number;
     favorite: boolean;
     help: string | null;
 };

@@ -22,18 +22,15 @@ export const useFlashcardStore = defineStore("flashcard", {
         prepend(item: Flashcard)
         {
             this.flashcards = [item, ...this.flashcards];
-            this.incrementTotal();
         },
         append(item: Flashcard)
         {
             this.flashcards = [...this.flashcards, item];
-            this.incrementTotal();
         },
         delete(item: Flashcard)
         {
             const itemToRemove = this.flashcards.findIndex(f => f.id === item.id);
             this.flashcards.splice(itemToRemove, 1);
-            this.decrementTotal();
         },
         update(id: number, item: Partial<Flashcard>)
         {

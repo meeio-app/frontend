@@ -237,6 +237,7 @@ const duplicateRow = async (row: Topic) =>
     });
 
     topicStore.prepend(response);
+    topicStore.incrementTotal();
 
     useStandardToast("success", {
         description: `The topic ${row.name} has been duplicated`
@@ -275,6 +276,7 @@ const deleteRow = async (row: Topic) =>
         {
             await repository.topic.delete(row.id);
             topicStore.delete(row);
+            topicStore.decrementTotal();
 
             [unitStore.total, flashcardStore.totalToReview, flashcardStore.total] = await Promise.all([
                 repository.unit.count("all"),

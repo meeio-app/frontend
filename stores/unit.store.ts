@@ -25,18 +25,15 @@ export const useUnitStore = defineStore("unit", {
         prepend(item: Unit)
         {
             this.units = [item, ...this.units];
-            this.incrementTotal();
         },
         append(item: Unit)
         {
             this.units = [...this.units, item];
-            this.incrementTotal();
         },
         delete(item: Unit)
         {
             const itemToRemove = this.units.findIndex(u => u.id === item.id);
             this.units.splice(itemToRemove, 1);
-            this.decrementTotal();
         },
         update(id: number, item: Partial<Unit>)
         {

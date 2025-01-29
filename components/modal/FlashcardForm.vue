@@ -264,10 +264,8 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
                 flashcardStore.prepend(flashcard);
                 flashcardStore.incrementCollectionTotal();
             }
-            else
-            {
-                flashcardStore.incrementTotal();
-            }
+            
+            flashcardStore.incrementTotal();
         }
 
         useStandardToast("success", {

@@ -23,18 +23,15 @@ export const useTopicStore = defineStore("topic", {
         prepend(item: Topic)
         {
             this.topics = [item, ...this.topics];
-            this.incrementTotal();
         },
         append(item: Topic)
         {
             this.topics = [...this.topics, item];
-            this.incrementTotal();
         },
         delete(item: Topic)
         {
             const itemToRemove = this.topics.findIndex(t => t.id === item.id);
             this.topics.splice(itemToRemove, 1);
-            this.decrementTotal();
         },
         update(id: number, item: Partial<Topic>)
         {

@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import { DateTime } from "luxon";
-import { ModalConfirm, ModalUnitForm } from "#components";
+import { ModalConfirm, ModalMoveToCollection, ModalUnitForm } from "#components";
 import type { BreadcrumbLink, DropdownItem } from "#ui/types";
 import type { PaginationOrder } from "~/types/core";
 import type { Topic, Unit } from "~/types/entity";
@@ -220,6 +220,10 @@ const rowOptions = (row: Unit): DropdownItem[][] => [
             label: "Duplicate",
             icon: "i-tabler-copy",
             click: () => duplicateRow(row)
+        }, {
+            label: "Move",
+            icon: "i-tabler-arrow-forward-up-double",
+            click: () => moveRow(row)
         }
     ], [
         {
@@ -275,10 +279,19 @@ const duplicateRow = async (row: Unit) =>
     });
 
     unitStore.prepend(response);
+    unitStore.incrementTotal();
     unitStore.incrementCollectionTotal();
 
     useStandardToast("success", {
         description: `The unit ${row.name} has been duplicated`
+    });
+};
+
+const moveRow = (row: Unit) =>
+{
+    modal.open(ModalMoveToCollection, {
+        element: row,
+        type: "unit",
     });
 };
 
@@ -320,6 +333,7 @@ const deleteRow = async (row: Unit) =>
             ]);
 
             unitStore.delete(row);
+            unitStore.decrementTotal();
             unitStore.decrementCollectionTotal();
 
             useStandardToast("success", {

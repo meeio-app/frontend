@@ -171,10 +171,8 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
                 unitStore.prepend(unit);
                 unitStore.incrementCollectionTotal();
             }
-            else
-            {
-                unitStore.incrementTotal();
-            }
+
+            unitStore.incrementTotal();
         }
 
         useStandardToast("success", {

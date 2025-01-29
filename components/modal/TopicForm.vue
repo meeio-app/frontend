@@ -105,6 +105,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
             });
 
             topicStore.prepend(topic);
+            topicStore.incrementTotal();
         }
 
         useStandardToast("success", {

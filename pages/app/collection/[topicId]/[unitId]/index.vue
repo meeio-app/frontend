@@ -274,6 +274,7 @@ const duplicateRow = async (row: Flashcard) =>
     });
 
     flashcardStore.prepend(response);
+    flashcardStore.incrementTotal();
     flashcardStore.incrementCollectionTotal();
     flashcardStore.incrementFlashcardsToReview();
 
@@ -320,6 +321,7 @@ const deleteRow = async (row: Flashcard) =>
             await repository.flashcard.delete(row.id);
 
             flashcardStore.delete(row);
+            flashcardStore.decrementTotal();
             flashcardStore.decrementCollectionTotal();
 
             if ((row.nextReview && datetimeCompare(DateTime.now().toISO(), row.nextReview) === "before") || row.nextReview === null)
