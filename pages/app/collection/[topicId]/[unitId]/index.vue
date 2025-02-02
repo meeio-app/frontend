@@ -80,7 +80,7 @@ import { DateTime } from "luxon";
 import type { PaginationOrder } from "~/types/request";
 import type { FlashcardResponse, TopicResponse, UnitResponse } from "~/types/entity";
 import type { BreadcrumbLink, DropdownItem } from "#ui/types";
-import { ModalConfirm, ModalFlashcardForm } from "#components";
+import { ModalConfirm, ModalFlashcardForm, ModalMoveToCollection } from "#components";
 
 // Meta methods for page
 definePageMeta({
@@ -232,26 +232,34 @@ const toggleFavorite = async (row: FlashcardResponse) =>
 };
 
 const rowOptions = (row: FlashcardResponse): DropdownItem[][] => [
-    [{
-        label: "Edit",
-        icon: "i-tabler-edit",
-        click: () => showCreateUpdateModal(row)
-    }, {
-        label: "Duplicate",
-        icon: "i-tabler-copy",
-        click: () => duplicateRow(row)
-    }], [{
-        label: "Reset",
-        icon: "i-tabler-sparkles",
-        click: () => resetRow(row)
-    }, {
-        label: "Delete",
-        class: "bg-red-500/15",
-        labelClass: "text-red-500",
-        iconClass: "bg-red-500",
-        icon: "i-tabler-trash",
-        click: () => deleteRow(row)
-    }]
+    [
+        {
+            label: "Edit",
+            icon: "i-tabler-edit",
+            click: () => showCreateUpdateModal(row)
+        }, {
+            label: "Duplicate",
+            icon: "i-tabler-copy",
+            click: () => duplicateRow(row)
+        }, {
+            label: "Move",
+            icon: "i-tabler-arrow-forward-up-double",
+            click: () => moveRow(row)
+        }
+    ], [
+        {
+            label: "Reset",
+            icon: "i-tabler-sparkles",
+            click: () => resetRow(row)
+        }, {
+            label: "Delete",
+            class: "bg-red-500/15",
+            labelClass: "text-red-500",
+            iconClass: "bg-red-500",
+            icon: "i-tabler-trash",
+            click: () => deleteRow(row)
+        }
+    ]
 ];
 
 const showCreateUpdateModal = (row?: FlashcardResponse) =>
@@ -281,6 +289,14 @@ const duplicateRow = async (row: FlashcardResponse) =>
 
     useStandardToast("success", {
         description: `The flashcard ${row.front} has been duplicated`
+    });
+};
+
+const moveRow = (row: FlashcardResponse) =>
+{
+    modal.open(ModalMoveToCollection, {
+        element: row,
+        type: "flashcard",
     });
 };
 
