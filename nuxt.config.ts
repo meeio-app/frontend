@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         "@nuxtjs/i18n",
         "nuxt-umami",
     ],
-    ssr: false,
+    ssr: true,
     imports: {
         dirs: [
             "utils/**",
