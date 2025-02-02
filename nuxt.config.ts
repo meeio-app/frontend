@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         "@nuxtjs/i18n",
         "nuxt-umami",
     ],
-    ssr: false,
+    ssr: true,
     imports: {
         dirs: [
             "utils/**",
@@ -77,7 +77,8 @@ export default defineNuxtConfig({
         host: process.env.UMAMI_HOST,
         autoTrack: true,
         logErrors: true,
-        enabled: false
+        enabled: true,
+        ignoreLocalhost: true,
         // proxy: "cloak",
         // ignoreLocalhost: true,
         // useDirective: true,
