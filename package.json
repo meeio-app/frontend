@@ -2,7 +2,7 @@
     "name": "meeio-frontend",
     "private": true,
     "type": "module",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev --no-fork -o",
