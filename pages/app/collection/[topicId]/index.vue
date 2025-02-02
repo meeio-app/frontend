@@ -68,7 +68,7 @@ import { DateTime } from "luxon";
 import { ModalConfirm, ModalMoveToCollection, ModalUnitForm } from "#components";
 import type { BreadcrumbLink, DropdownItem } from "#ui/types";
 import type { PaginationOrder } from "~/types/request";
-import type { Topic, Unit } from "~/types/entity";
+import type { TopicResponse, UnitResponse } from "~/types/entity";
 
 definePageMeta({
     name: "units"
@@ -111,7 +111,7 @@ onBeforeMount(() =>
 onMounted(async () =>
 {
     unitStore.collectionSelectedUnit = undefined;
-    topicStore.collectionSelectedTopic = await loadParentCollection<Topic>({ type: "topic", id: topicId });
+    topicStore.collectionSelectedTopic = await loadParentCollection<TopicResponse>({ type: "topic", id: topicId });
 
     if (topicStore.collectionSelectedTopic)
     {
@@ -192,7 +192,7 @@ const loadTable = async () =>
     }
 };
 
-const toggleFavorite = async (row: Unit) =>
+const toggleFavorite = async (row: UnitResponse) =>
 {
     const updatedUnit = await repository.unit.partialUpdate(row.id, {
         favorite: !row.favorite
@@ -200,7 +200,7 @@ const toggleFavorite = async (row: Unit) =>
     unitStore.update(row.id, updatedUnit);
 };
 
-const rowOptions = (row: Unit): DropdownItem[][] => [
+const rowOptions = (row: UnitResponse): DropdownItem[][] => [
     [
         {
             label: "Start a session",
@@ -241,7 +241,7 @@ const rowOptions = (row: Unit): DropdownItem[][] => [
     ]
 ];
 
-const excuteStartSession = async (row: Unit) =>
+const excuteStartSession = async (row: UnitResponse) =>
 {
     if (pageProvider.loadingSession)
     {
@@ -262,7 +262,7 @@ const excuteStartSession = async (row: Unit) =>
     }
 };
 
-const showCreateUpdateModal = (row?: Unit) =>
+const showCreateUpdateModal = (row?: UnitResponse) =>
 {
     modal.open(ModalUnitForm, {
         topic: topicStore.collectionSelectedTopic!,
@@ -270,7 +270,7 @@ const showCreateUpdateModal = (row?: Unit) =>
     });
 };
 
-const duplicateRow = async (row: Unit) =>
+const duplicateRow = async (row: UnitResponse) =>
 {
     const response = await repository.unit.create(topicStore.collectionSelectedTopic!.id, {
         name: row.name,
@@ -287,7 +287,7 @@ const duplicateRow = async (row: Unit) =>
     });
 };
 
-const moveRow = (row: Unit) =>
+const moveRow = (row: UnitResponse) =>
 {
     modal.open(ModalMoveToCollection, {
         element: row,
@@ -295,7 +295,7 @@ const moveRow = (row: Unit) =>
     });
 };
 
-const resetRow = async (row: Unit) =>
+const resetRow = async (row: UnitResponse) =>
 {
     modal.open(ModalConfirm, {
         title: "Reset",
@@ -315,7 +315,7 @@ const resetRow = async (row: Unit) =>
     });
 };
 
-const deleteRow = async (row: Unit) =>
+const deleteRow = async (row: UnitResponse) =>
 {
     modal.open(ModalConfirm, {
         title: "Delete",
@@ -343,7 +343,7 @@ const deleteRow = async (row: Unit) =>
     });
 };
 
-const selectRow = (row: Unit) =>
+const selectRow = (row: UnitResponse) =>
 {
     unitStore.collectionSelectedUnit = row;
     return navigateTo({

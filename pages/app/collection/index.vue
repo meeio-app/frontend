@@ -64,7 +64,7 @@ import { DateTime } from "luxon";
 import { ModalConfirm, ModalTopicForm } from "#components";
 import type { DropdownItem } from "#ui/types";
 import type { PaginationOrder } from "~/types/request";
-import type { Topic } from "~/types/entity";
+import type { TopicResponse } from "~/types/entity";
 
 definePageMeta({
     name: "topics"
@@ -157,7 +157,7 @@ const loadTable = async () =>
 };
 
 // Table actions
-const toggleFavorite = async (row: Topic) =>
+const toggleFavorite = async (row: TopicResponse) =>
 {
     const updatedTopic = await repository.topic.partialUpdate(row.id, {
         favorite: !row.favorite
@@ -165,7 +165,7 @@ const toggleFavorite = async (row: Topic) =>
     topicStore.update(row.id, updatedTopic);
 };
 
-const rowOptions = (row: Topic): DropdownItem[][] => [
+const rowOptions = (row: TopicResponse): DropdownItem[][] => [
     [
         {
             label: "Start a session",
@@ -201,7 +201,7 @@ const rowOptions = (row: Topic): DropdownItem[][] => [
     ]
 ];
 
-const excuteStartSession = async (row: Topic) =>
+const excuteStartSession = async (row: TopicResponse) =>
 {
     if (pageProvider.loadingSession)
     {
@@ -221,14 +221,14 @@ const excuteStartSession = async (row: Topic) =>
     }
 };
 
-const showCreateUpdateModal = (row?: Topic) =>
+const showCreateUpdateModal = (row?: TopicResponse) =>
 {
     modal.open(ModalTopicForm, {
         topic: row
     });
 };
 
-const duplicateRow = async (row: Topic) =>
+const duplicateRow = async (row: TopicResponse) =>
 {
     const response = await repository.topic.create({
         name: row.name,
@@ -244,7 +244,7 @@ const duplicateRow = async (row: Topic) =>
     });
 };
 
-const resetRow = async (row: Topic) =>
+const resetRow = async (row: TopicResponse) =>
 {
     modal.open(ModalConfirm, {
         title: "Reset",
@@ -264,7 +264,7 @@ const resetRow = async (row: Topic) =>
     });
 };
 
-const deleteRow = async (row: Topic) =>
+const deleteRow = async (row: TopicResponse) =>
 {
     modal.open(ModalConfirm, {
         title: "Delete",
@@ -291,7 +291,7 @@ const deleteRow = async (row: Topic) =>
     });
 };
 
-const select = (row: Topic) =>
+const select = (row: TopicResponse) =>
 {
     topicStore.collectionSelectedTopic = row;
     return navigateTo({

@@ -82,12 +82,12 @@
 
 <script setup lang="ts">
 import { z } from "zod";
-import type { Topic, Unit } from "~/types/entity";
+import type { TopicResponse, UnitResponse } from "~/types/entity";
 import type { FormSubmitEvent } from "#ui/types";
 
 const props = defineProps<{
-    topic?: Topic;
-    unit?: Unit;
+    topic?: TopicResponse;
+    unit?: UnitResponse;
 }>();
 
 const modal = useModal();
@@ -105,7 +105,7 @@ const schema = z.object({
 type Schema = z.output<typeof schema>;
 
 const formProvider = reactive({
-    topics: [] as Topic[],
+    topics: [] as TopicResponse[],
     loadingTopics: false,
     loadingForm: false,
     keepCreating: false,

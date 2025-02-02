@@ -1,9 +1,9 @@
-import type { Unit } from "~/types/entity";
+import type { UnitResponse } from "~/types/entity";
 
 type State = {
-    units: Unit[];
+    units: UnitResponse[];
     total: number;
-    collectionSelectedUnit?: Unit;
+    collectionSelectedUnit?: UnitResponse;
     collectionTotal: number;
 };
 
@@ -18,24 +18,24 @@ export const useUnitStore = defineStore("unit", {
         collectionTotal: 0
     }),
     actions: {
-        find(id: number): Unit | undefined
+        find(id: number): UnitResponse | undefined
         {
             return this.units.find(u => u.id === id);
         },
-        prepend(item: Unit)
+        prepend(item: UnitResponse)
         {
             this.units = [item, ...this.units];
         },
-        append(item: Unit)
+        append(item: UnitResponse)
         {
             this.units = [...this.units, item];
         },
-        delete(item: Unit)
+        delete(item: UnitResponse)
         {
             const itemToRemove = this.units.findIndex(u => u.id === item.id);
             this.units.splice(itemToRemove, 1);
         },
-        update(id: number, item: Partial<Unit>)
+        update(id: number, item: Partial<UnitResponse>)
         {
             const itemToUpdate = this.units.findIndex(u => u.id === id);
             if (itemToUpdate !== -1)

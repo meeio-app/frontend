@@ -1,9 +1,9 @@
-import type { Topic } from "~/types/entity";
+import type { TopicResponse } from "~/types/entity";
 
 type State = {
-    topics: Topic[];
+    topics: TopicResponse[];
     total: number;
-    collectionSelectedTopic?: Topic;
+    collectionSelectedTopic?: TopicResponse;
 };
 
 export const useTopicStore = defineStore("topic", {
@@ -16,24 +16,24 @@ export const useTopicStore = defineStore("topic", {
         collectionSelectedTopic: undefined
     }),
     actions: {
-        find(id: number): Topic | undefined
+        find(id: number): TopicResponse | undefined
         {
             return this.topics.find(t => t.id === id);
         },
-        prepend(item: Topic)
+        prepend(item: TopicResponse)
         {
             this.topics = [item, ...this.topics];
         },
-        append(item: Topic)
+        append(item: TopicResponse)
         {
             this.topics = [...this.topics, item];
         },
-        delete(item: Topic)
+        delete(item: TopicResponse)
         {
             const itemToRemove = this.topics.findIndex(t => t.id === item.id);
             this.topics.splice(itemToRemove, 1);
         },
-        update(id: number, item: Partial<Topic>)
+        update(id: number, item: Partial<TopicResponse>)
         {
             const itemToUpdate = this.topics.findIndex(t => t.id === id);
             if (itemToUpdate !== -1)

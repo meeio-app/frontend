@@ -1,8 +1,8 @@
-import type { User } from "~/types/entity";
+import type { UserResponse } from "~/types/entity";
 import type { SettingName } from "~/types/settings";
 
 type State = {
-    user?: User;
+    user?: UserResponse;
 };
 
 export const useAuthStore = defineStore("auth", {
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore("auth", {
 
             this.user = undefined;
         },
-        login(user: User)
+        login(user: UserResponse)
         {
             const token = useToken();
 

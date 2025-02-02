@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { DateTime } from "luxon";
-import { GradeType, type Review, type Session } from "~/types/entity";
+import { GradeType, type ReviewResponse, type Session } from "~/types/entity";
 import type { BadgeColor } from "#ui/types";
 
 const props = defineProps<{
@@ -67,7 +67,7 @@ const columns = [
     },
 ];
 
-const reviews = ref<Review[]>([]);
+const reviews = ref<ReviewResponse[]>([]);
 
 const provider = reactive({
     loading: false

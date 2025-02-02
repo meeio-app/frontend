@@ -3,14 +3,14 @@ import type { Filter, Pagination } from "~/types/request";
 import type { Streak } from "~/types/data";
 import type { SessionCountCriteria } from "~/types/countCriteria";
 import type { Period } from "~/types/date";
-import type { Session } from "~/types/entity";
+import type { SessionResponse } from "~/types/entity";
 import type { Paginated } from "~/types/response";
 
 export class SessionRepository extends AbstractRepository
 {
     async findAll(pagination: Partial<Pagination>, filter: Filter | null = null)
     {
-        return this.fetch<Paginated<Session[]>>(`/sessions`, {
+        return this.fetch<Paginated<SessionResponse[]>>(`/sessions`, {
             method: "GET",
             query: {
                 ...pagination,
@@ -21,7 +21,7 @@ export class SessionRepository extends AbstractRepository
 
     async stop(id: number)
     {
-        return this.fetch<Session>(`/sessions/${id}/stop`, {
+        return this.fetch<SessionResponse>(`/sessions/${id}/stop`, {
             method: "POST",
         });
     }

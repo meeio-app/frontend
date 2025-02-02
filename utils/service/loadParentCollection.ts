@@ -1,7 +1,7 @@
-import type { Topic, Unit } from "~/types/entity";
+import type { TopicResponse, UnitResponse } from "~/types/entity";
 import type { Collection } from "~/types/session";
 
-export default async <T extends Topic | Unit>(collection: Collection): Promise<T | undefined> =>
+export default async <T extends TopicResponse | UnitResponse>(collection: Collection): Promise<T | undefined> =>
 {
     if (Number.isNaN(collection.id))
     {

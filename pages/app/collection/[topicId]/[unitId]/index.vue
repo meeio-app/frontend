@@ -78,7 +78,7 @@
 <script setup lang="ts">
 import { DateTime } from "luxon";
 import type { PaginationOrder } from "~/types/request";
-import type { Flashcard, Topic, Unit } from "~/types/entity";
+import type { FlashcardResponse, TopicResponse, UnitResponse } from "~/types/entity";
 import type { BreadcrumbLink, DropdownItem } from "#ui/types";
 import { ModalConfirm, ModalFlashcardForm } from "#components";
 
@@ -125,8 +125,8 @@ onBeforeMount(() =>
 onMounted(async () =>
 {
     [topicStore.collectionSelectedTopic, unitStore.collectionSelectedUnit] = await Promise.all([
-        loadParentCollection<Topic>({ type: "topic", id: topicId }),
-        loadParentCollection<Unit>({ type: "unit", id: unitId })
+        loadParentCollection<TopicResponse>({ type: "topic", id: topicId }),
+        loadParentCollection<UnitResponse>({ type: "unit", id: unitId })
     ]);
 
     if (topicStore.collectionSelectedTopic && unitStore.collectionSelectedUnit)
@@ -223,7 +223,7 @@ const loadTable = async () =>
     }
 };
 
-const toggleFavorite = async (row: Flashcard) =>
+const toggleFavorite = async (row: FlashcardResponse) =>
 {
     const updatedFlashcard = await repository.flashcard.partialUpdate(row.id, {
         favorite: !row.favorite
@@ -231,7 +231,7 @@ const toggleFavorite = async (row: Flashcard) =>
     flashcardStore.update(row.id, updatedFlashcard);
 };
 
-const rowOptions = (row: Flashcard): DropdownItem[][] => [
+const rowOptions = (row: FlashcardResponse): DropdownItem[][] => [
     [{
         label: "Edit",
         icon: "i-tabler-edit",
@@ -254,7 +254,7 @@ const rowOptions = (row: Flashcard): DropdownItem[][] => [
     }]
 ];
 
-const showCreateUpdateModal = (row?: Flashcard) =>
+const showCreateUpdateModal = (row?: FlashcardResponse) =>
 {
     modal.open(ModalFlashcardForm, {
         topic: topicStore.collectionSelectedTopic!,
@@ -263,7 +263,7 @@ const showCreateUpdateModal = (row?: Flashcard) =>
     });
 };
 
-const duplicateRow = async (row: Flashcard) =>
+const duplicateRow = async (row: FlashcardResponse) =>
 {
     const response = await repository.flashcard.create(unitStore.collectionSelectedUnit!.id, {
         front: row.front,
@@ -283,7 +283,7 @@ const duplicateRow = async (row: Flashcard) =>
     });
 };
 
-const resetRow = async (row: Flashcard) =>
+const resetRow = async (row: FlashcardResponse) =>
 {
     modal.open(ModalConfirm, {
         title: "Reset",
@@ -308,7 +308,7 @@ const resetRow = async (row: Flashcard) =>
     });
 };
 
-const deleteRow = async (row: Flashcard) =>
+const deleteRow = async (row: FlashcardResponse) =>
 {
     modal.open(ModalConfirm, {
         title: "Delete",
