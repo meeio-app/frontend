@@ -8,7 +8,7 @@ type State = {
 
 export const useTopicStore = defineStore("topic", {
     persist: {
-        pick: ["selectedTopic"]
+        pick: ["collectionSelectedTopic"]
     },
     state: (): State => ({
         topics: [],

@@ -9,7 +9,7 @@ type State = {
 
 export const useUnitStore = defineStore("unit", {
     persist: {
-        pick: ["selectedUnit"]
+        pick: ["collectionSelectedUnit"]
     },
     state: (): State => ({
         units: [],
