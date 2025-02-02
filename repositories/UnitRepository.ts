@@ -1,9 +1,9 @@
 import { AbstractRepository } from "./AbstractRepository";
 import type { Unit } from "~/types/entity";
-import type { Filter, Pagination } from "~/types/core";
+import type { Filter, Pagination } from "~/types/request";
 import type { UnitCountCriteria } from "~/types/countCriteria";
 import type { FlashcardSession } from "~/types/session";
-import type { Paginated } from "~/types/request";
+import type { Paginated } from "~/types/response";
 
 export class UnitRepository extends AbstractRepository
 {

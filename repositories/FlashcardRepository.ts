@@ -1,8 +1,8 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Filter, Pagination } from "~/types/core";
+import type { Filter, Pagination } from "~/types/request";
 import type { FlashcardCountCriteria } from "~/types/countCriteria";
 import type { Flashcard } from "~/types/entity";
-import type { Paginated } from "~/types/request";
+import type { Paginated } from "~/types/response";
 import type { FlashcardSession } from "~/types/session";
 
 export class FlashcardRepository extends AbstractRepository

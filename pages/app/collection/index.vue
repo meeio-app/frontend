@@ -63,7 +63,7 @@
 import { DateTime } from "luxon";
 import { ModalConfirm, ModalTopicForm } from "#components";
 import type { DropdownItem } from "#ui/types";
-import type { PaginationOrder } from "~/types/core";
+import type { PaginationOrder } from "~/types/request";
 import type { Topic } from "~/types/entity";
 
 definePageMeta({

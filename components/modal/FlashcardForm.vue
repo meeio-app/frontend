@@ -264,7 +264,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
                 flashcardStore.prepend(flashcard);
                 flashcardStore.incrementCollectionTotal();
             }
-            
+
             flashcardStore.incrementTotal();
         }
 

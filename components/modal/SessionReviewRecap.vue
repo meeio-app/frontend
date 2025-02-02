@@ -15,7 +15,7 @@
 
             <template #grade-data="{ row }">
                 <UBadge
-                    :color="gradeColor(row.grade)"
+                    :color="gradeData(row.grade).color as BadgeColor"
                     variant="subtle"
                 >
                     <span v-if="row.grade === GradeType.easy">Easy</span>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { DateTime } from "luxon";
 import { GradeType, type Review, type Session } from "~/types/entity";
+import type { BadgeColor } from "#ui/types";
 
 const props = defineProps<{
     session: Session;

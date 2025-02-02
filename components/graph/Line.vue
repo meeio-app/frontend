@@ -18,7 +18,10 @@ const y = (d: DataRecord) => d.y;
 
 <template>
     <!-- Using grid-cols-1 is a workaround to dynamically fix the width on the graph -->
-    <div ref="graphContainer" class="w-full h-full grid grid-cols-1">
+    <div
+        ref="graphContainer"
+        class="w-full h-full grid grid-cols-1"
+    >
         <VisXYContainer
             :data="data"
             :padding="{ top: 10 }"

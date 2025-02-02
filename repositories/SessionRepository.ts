@@ -1,9 +1,10 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Filter, Pagination, Streak } from "~/types/core";
+import type { Filter, Pagination } from "~/types/request";
+import type { Streak } from "~/types/data";
 import type { SessionCountCriteria } from "~/types/countCriteria";
-import type { Period } from "~/types/period";
+import type { Period } from "~/types/date";
 import type { Session } from "~/types/entity";
-import type { Paginated } from "~/types/request";
+import type { Paginated } from "~/types/response";
 
 export class SessionRepository extends AbstractRepository
 {

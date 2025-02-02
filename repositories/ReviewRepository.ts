@@ -1,7 +1,8 @@
 import { AbstractRepository } from "./AbstractRepository";
 import type { ReviewCountCriteria } from "~/types/countCriteria";
 import type { Review } from "~/types/entity";
-import type { Period } from "~/types/period";
+import type { Period } from "~/types/date";
+import type { Paginated } from "~/types/response";
 
 export class ReviewRepository extends AbstractRepository
 {
@@ -18,7 +19,7 @@ export class ReviewRepository extends AbstractRepository
 
     async findAllBySession(sessionId: number)
     {
-        return this.fetch<Review[]>(`/sessions/${sessionId}/reviews`, {
+        return this.fetch<Paginated<Review[]>>(`/sessions/${sessionId}/reviews`, {
             method: "GET",
         });
     }

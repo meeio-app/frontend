@@ -1,15 +1,24 @@
+export type PaginationOrder = "asc" | "desc";
 export type Pagination = {
-    total: number;
-    itemsPerPage: number;
-    count: number;
-    totalpages: number;
+    sort: string;
+    order: PaginationOrder;
     page: number;
-    offset: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
+    itemsPerPage: number;
 };
 
-export type Paginated<TData> = {
-    pagination: Pagination;
-    data: TData;
+export type Operator = "eq" | "neq" | "lt" | "lte" | "gt" | "gte" | "like";
+export const Operators: Record<string, Operator> = {
+    Equal: "eq",
+    NotEqual: "neq",
+    LessThan: "lt",
+    LessThanOrEqual: "lte",
+    GreaterThan: "gt",
+    GreaterThanOrEqual: "gte",
+    Like: "like",
+};
+
+export type Filter = {
+    filter: string;
+    operator: Operator;
+    value: unknown;
 };

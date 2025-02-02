@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { DateTime } from "luxon";
-import type { PaginationOrder } from "~/types/core";
+import type { PaginationOrder } from "~/types/request";
 import type { Flashcard, Topic, Unit } from "~/types/entity";
 import type { BreadcrumbLink, DropdownItem } from "#ui/types";
 import { ModalConfirm, ModalFlashcardForm } from "#components";

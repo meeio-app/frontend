@@ -67,7 +67,7 @@
 import { DateTime } from "luxon";
 import { ModalConfirm, ModalMoveToCollection, ModalUnitForm } from "#components";
 import type { BreadcrumbLink, DropdownItem } from "#ui/types";
-import type { PaginationOrder } from "~/types/core";
+import type { PaginationOrder } from "~/types/request";
 import type { Topic, Unit } from "~/types/entity";
 
 definePageMeta({

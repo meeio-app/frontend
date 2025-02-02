@@ -105,7 +105,8 @@
 
 <script lang="ts" setup>
 import { DateTime } from "luxon";
-import type { PaginationOrder, Streak } from "~/types/core";
+import type { PaginationOrder } from "~/types/request";
+import type { Streak } from "~/types/data";
 import type { Session } from "~/types/entity";
 
 definePageMeta({
