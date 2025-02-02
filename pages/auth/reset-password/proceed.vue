@@ -108,7 +108,7 @@ const onSubmit = async () =>
 
         const data = await repository.auth.proceedResetPassword({
             token: formData.token,
-            password: formData.password
+            rawPassword: formData.password
         });
 
         authStore.login(data);

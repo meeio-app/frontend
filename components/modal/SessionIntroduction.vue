@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Collection } from "~/types/session";
+import type { Collection } from "~/types/utils";
 
 const props = defineProps<{
     collection?: Collection;

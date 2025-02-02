@@ -2,10 +2,14 @@ import type { SettingName } from "./settings";
 
 export type Role = "ROLE_USER" | "ROLE_ADMIN" | "ROLE_PREMIUM";
 
-export type User = {
-    id: number;
+// User
+type BaseUser = {
     email: string;
     username: string;
+};
+
+export type UserResponse = BaseUser & {
+    id: number;
     token: string;
     createdAt: string;
     updatedAt: string;
@@ -14,48 +18,75 @@ export type User = {
     premiumAt: string | null;
 };
 
-export type Topic = {
-    id: number;
+export type UserRequest = BaseUser & {
+    rawPassword: string;
+};
+
+// Topic
+type BaseTopic = {
     name: string;
-    createdAt: string;
-    updatedAt: string;
     description: string;
     favorite: boolean;
 };
 
-export type Unit = {
+export type TopicResponse = BaseTopic & {
     id: number;
-    name: string;
     createdAt: string;
     updatedAt: string;
-    description: string;
-    favorite: boolean;
-    topic: Topic | number;
 };
 
+export type TopicRequest = BaseTopic & {};
+
+// Unit
+type BaseUnit = {
+    name: string;
+    description: string;
+    favorite: boolean;
+};
+
+export type UnitResponse = BaseUnit & {
+    id: number;
+    createdAt: string;
+    updatedAt: string;
+    topic: TopicResponse;
+};
+
+export type UnitRequest = BaseUnit & {
+    topic: number;
+};
+
+// Flashcard
 export type State = 0 | 1;
 export const StateType: Record<string, State> = {
     new: 0,
     learning: 1
 };
 
-export type Flashcard = {
-    id: number;
-    createdAt: string;
-    updatedAt: string;
+type BaseFlashcard = {
     front: string;
     back: string;
     details: string;
+    favorite: boolean;
+    help: string | null;
+};
+
+export type FlashcardResponse = BaseFlashcard & {
+    id: number;
+    createdAt: string;
+    updatedAt: string;
     nextReview: string;
     previousReview: string;
     state: State;
     difficulty: number | null;
     stability: number | null;
-    unit: Unit | number;
-    favorite: boolean;
-    help: string | null;
+    unit: UnitResponse;
 };
 
+export type FlashcardRequest = BaseFlashcard & {
+    unit: number;
+};
+
+// Auth
 export type Auth = {
     username: string;
     email: string;
@@ -66,10 +97,11 @@ export type Auth = {
 export type ResetPassword = {
     identifier: string;
     token: string;
-    password: string;
+    rawPassword: string;
 };
 
-export type Session = {
+// Session
+export type SessionResponse = {
     id: number;
     startedAt: string;
     endedAt: string;
@@ -84,10 +116,18 @@ export const GradeType: Record<string, Grade> = {
     easy: 4
 };
 
-export type Review = {
+// Review
+type BaseReview = {
+    grade: Grade;
+};
+
+export type ReviewResponse = BaseReview & {
     id: number;
     date: string;
-    grade: Grade;
     reset: boolean;
-    flashcard: Flashcard;
+    flashcard: FlashcardResponse;
+};
+
+export type ReviewRequest = BaseReview & {
+    session: number;
 };

@@ -1,5 +1,5 @@
 import type { Notification } from "#ui/types";
-import type { StandardToastType } from "~/types/core";
+import type { StandardToastType } from "~/types/toast";
 
 export function useStandardToast(type: StandardToastType, options?: Partial<Notification>)
 {

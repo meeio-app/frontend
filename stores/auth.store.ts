@@ -1,8 +1,14 @@
-import type { User } from "~/types/entity";
+import { getActivePinia, type Pinia, type Store } from "pinia";
+import type { UserResponse } from "~/types/entity";
 import type { SettingName } from "~/types/settings";
 
+interface ExtendedPinia extends Pinia
+{
+    _s: Map<string, Store>;
+}
+
 type State = {
-    user?: User;
+    user?: UserResponse;
 };
 
 export const useAuthStore = defineStore("auth", {
@@ -12,15 +18,13 @@ export const useAuthStore = defineStore("auth", {
     actions: {
         logout()
         {
-            const applicationStore = useApplicationStore();
             const token = useToken();
-
-            applicationStore.initialized = false;
             token.value = null;
 
-            this.user = undefined;
+            const pinia = getActivePinia() as ExtendedPinia;
+            pinia._s.forEach(store => store.$reset());
         },
-        login(user: User)
+        login(user: UserResponse)
         {
             const token = useToken();
 

@@ -52,11 +52,11 @@
 
 <script setup lang="ts">
 import { z } from "zod";
-import type { Flashcard, Topic, Unit } from "~/types/entity";
+import type { FlashcardResponse, TopicResponse, UnitResponse } from "~/types/entity";
 import type { FormSubmitEvent } from "#ui/types";
 
 const props = defineProps<{
-    element: Unit | Flashcard;
+    element: UnitResponse | FlashcardResponse;
     type: "unit" | "flashcard";
 }>();
 
@@ -72,7 +72,7 @@ const schema = z.object({
 type Schema = z.output<typeof schema>;
 
 const formProvider = reactive({
-    collections: [] as (Topic | Unit)[],
+    collections: [] as (TopicResponse | UnitResponse)[],
     loadingCollections: false,
     loadingForm: false,
     searchCollectionQuery: ""
@@ -109,8 +109,8 @@ const loadCollections = async () =>
         }
 
         const parentId = props.type === "unit"
-            ? ((props.element as Unit).topic as Topic).id
-            : ((props.element as Flashcard).unit as Unit).id;
+            ? ((props.element as UnitResponse).topic as TopicResponse).id
+            : ((props.element as FlashcardResponse).unit as UnitResponse).id;
 
         formProvider.collections = formProvider.collections.filter(collection => collection.id !== parentId);
     }

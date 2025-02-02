@@ -134,7 +134,7 @@
 
 <script lang="ts" setup>
 import { DateTime } from "luxon";
-import type { Flashcard, Topic, Unit } from "~/types/entity";
+import type { FlashcardResponse, TopicResponse, UnitResponse } from "~/types/entity";
 
 definePageMeta({
     name: "overview",
@@ -193,10 +193,10 @@ const loadDashboardCards = async () =>
 };
 
 const tableData = reactive({
-    recentTopics: [] as Topic[],
-    recentUnits: [] as Unit[],
-    easiestFlashcards: [] as Flashcard[],
-    hardestFlashcards: [] as Flashcard[],
+    recentTopics: [] as TopicResponse[],
+    recentUnits: [] as UnitResponse[],
+    easiestFlashcards: [] as FlashcardResponse[],
+    hardestFlashcards: [] as FlashcardResponse[],
 });
 
 const loadDashboardTables = async () =>

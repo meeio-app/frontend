@@ -82,12 +82,12 @@
 
 <script setup lang="ts">
 import { z } from "zod";
-import type { Topic, Unit } from "~/types/entity";
+import type { TopicResponse, UnitResponse } from "~/types/entity";
 import type { FormSubmitEvent } from "#ui/types";
 
 const props = defineProps<{
-    topic?: Topic;
-    unit?: Unit;
+    topic?: TopicResponse;
+    unit?: UnitResponse;
 }>();
 
 const modal = useModal();
@@ -105,7 +105,7 @@ const schema = z.object({
 type Schema = z.output<typeof schema>;
 
 const formProvider = reactive({
-    topics: [] as Topic[],
+    topics: [] as TopicResponse[],
     loadingTopics: false,
     loadingForm: false,
     keepCreating: false,
@@ -160,10 +160,11 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
         }
         else
         {
-            const unit = await repository.unit.create(event.data.topicId, {
+            const unit = await repository.unit.create({
                 name: event.data.name,
                 description: event.data.description,
-                favorite: false
+                favorite: false,
+                topic: event.data.topicId
             });
 
             if (topicStore.collectionSelectedTopic && topicStore.collectionSelectedTopic.id === event.data.topicId)

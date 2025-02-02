@@ -105,8 +105,9 @@
 
 <script lang="ts" setup>
 import { DateTime } from "luxon";
-import type { PaginationOrder, Streak } from "~/types/core";
-import type { Session } from "~/types/entity";
+import type { PaginationOrder } from "~/types/request";
+import type { Streak } from "~/types/data";
+import type { SessionResponse } from "~/types/entity";
 
 definePageMeta({
     name: "sessions",
@@ -234,7 +235,7 @@ const loadTable = async () =>
     }
 };
 
-const select = async (_row: Session) =>
+const select = async (_row: SessionResponse) =>
 {
     // modal.open(ModalSessionReviewRecap, {
     //     session: row

@@ -52,11 +52,11 @@
 
 <script setup lang="ts">
 import { z } from "zod";
-import type { Topic } from "~/types/entity";
+import type { TopicResponse } from "~/types/entity";
 import type { FormSubmitEvent } from "#ui/types";
 
 const props = defineProps<{
-    topic?: Topic;
+    topic?: TopicResponse;
 }>();
 
 const modal = useModal();

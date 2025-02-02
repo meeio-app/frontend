@@ -1,15 +1,15 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Filter, Pagination } from "~/types/core";
+import type { Filter, Pagination } from "~/types/request";
 import type { FlashcardCountCriteria } from "~/types/countCriteria";
-import type { Flashcard } from "~/types/entity";
-import type { Paginated } from "~/types/request";
+import type { FlashcardRequest, FlashcardResponse, ReviewRequest } from "~/types/entity";
+import type { Paginated } from "~/types/response";
 import type { FlashcardSession } from "~/types/session";
 
 export class FlashcardRepository extends AbstractRepository
 {
     async findAll(pagination: Partial<Pagination>, filter: Filter | null = null)
     {
-        return this.fetch<Paginated<Flashcard[]>>(`/flashcards`, {
+        return this.fetch<Paginated<FlashcardResponse[]>>(`/flashcards`, {
             method: "GET",
             query: {
                 ...pagination,
@@ -20,18 +20,17 @@ export class FlashcardRepository extends AbstractRepository
 
     async find(id: number)
     {
-        return this.fetch<Flashcard>(`/flashcards/${id}`, {
+        return this.fetch<FlashcardResponse>(`/flashcards/${id}`, {
             method: "GET"
         });
     };
 
-    async create(unitId: number, unit: Partial<Flashcard>)
+    async create(unit: Partial<FlashcardRequest>)
     {
-        return this.fetch<Flashcard>("/flashcards", {
+        return this.fetch<FlashcardResponse>("/flashcards", {
             method: "POST",
             body: {
                 ...unit,
-                unit: unitId
             }
         });
     };
@@ -43,9 +42,9 @@ export class FlashcardRepository extends AbstractRepository
         });
     };
 
-    async partialUpdate(id: number, updatedElement: Partial<Flashcard>)
+    async partialUpdate(id: number, updatedElement: Partial<FlashcardRequest>)
     {
-        return this.fetch<Flashcard>(`/flashcards/${id}`, {
+        return this.fetch<FlashcardResponse>(`/flashcards/${id}`, {
             method: "PATCH",
             body: {
                 ...updatedElement
@@ -53,14 +52,14 @@ export class FlashcardRepository extends AbstractRepository
         });
     };
 
-    async update(id: number, updatedElement: Flashcard)
+    async update(id: number, updatedElement: FlashcardRequest)
     {
         return this.partialUpdate(id, updatedElement);
     };
 
     async findByUnit(unitId: number, pagination: Partial<Pagination>, filter: Filter | null = null)
     {
-        return this.fetch<Paginated<Flashcard[]>>(`/units/${unitId}/flashcards`, {
+        return this.fetch<Paginated<FlashcardResponse[]>>(`/units/${unitId}/flashcards`, {
             method: "GET",
             query: {
                 ...pagination,
@@ -69,13 +68,12 @@ export class FlashcardRepository extends AbstractRepository
         });
     };
 
-    async review(id: number, gradeType: number, sessionId: number)
+    async review(id: number, review: ReviewRequest)
     {
         return this.fetch<null>(`/flashcards/${id}/review`, {
             method: "POST",
             body: {
-                grade: gradeType,
-                session: sessionId
+                ...review
             }
         });
     };
@@ -89,7 +87,7 @@ export class FlashcardRepository extends AbstractRepository
 
     async reset(id: number)
     {
-        return this.fetch<Flashcard>(`/flashcards/${id}/reset`, {
+        return this.fetch<FlashcardResponse>(`/flashcards/${id}/reset`, {
             method: "POST"
         });
     };

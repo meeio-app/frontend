@@ -1,9 +1,4 @@
-import type { Flashcard, Grade, Session } from "./entity";
-
-export type Collection = {
-    type: "topic" | "unit";
-    id: number;
-};
+import type { FlashcardResponse, Grade, SessionResponse } from "./entity";
 
 export type Answer = {
     grade: Grade;
@@ -12,8 +7,8 @@ export type Answer = {
 };
 
 export type FlashcardSession = {
-    session: Session | null;
-    flashcards: Flashcard[];
+    session: SessionResponse | null;
+    flashcards: FlashcardResponse[];
 };
 
 export type Validation = "valid" | "invalid";

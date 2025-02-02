@@ -1,12 +1,12 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { User, UserExtended } from "~/types/entity";
+import type { UserRequest, UserResponse } from "~/types/entity";
 import type { SettingName } from "~/types/settings";
 
 export class UserRepository extends AbstractRepository
 {
     async findMe()
     {
-        return this.fetch<User>(`/users/me`, {
+        return this.fetch<UserResponse>(`/users/me`, {
             method: "GET"
         });
     };
@@ -18,9 +18,9 @@ export class UserRepository extends AbstractRepository
         });
     };
 
-    async partialUpdateMe(updatedElement: Partial<UserExtended>)
+    async partialUpdateMe(updatedElement: Partial<UserRequest>)
     {
-        return this.fetch<User>(`/users/me`, {
+        return this.fetch<UserResponse>(`/users/me`, {
             method: "PATCH",
             body: {
                 ...updatedElement
@@ -28,18 +28,18 @@ export class UserRepository extends AbstractRepository
         });
     };
 
-    async updateMe(updatedElement: UserExtended)
+    async updateMe(updatedElement: UserRequest)
     {
         return this.partialUpdateMe(updatedElement);
     };
 
     async updateSetting(name: SettingName, value: string | number | boolean)
     {
-        return this.fetch<User>(`/users/settings`, {
+        return this.fetch<UserResponse>(`/users/settings`, {
             method: "POST",
             body: {
-                name,
-                value
+                name: name,
+                value: value
             }
         });
     };

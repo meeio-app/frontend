@@ -1,7 +1,4 @@
-type Range = {
-    min: number;
-    max: number;
-};
+import type { Range } from "~/types/utils";
 
 export default (value: number, originalRange: Range, newRange: Range) =>
 {

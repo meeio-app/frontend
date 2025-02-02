@@ -1,7 +1,7 @@
-import type { Flashcard } from "~/types/entity";
+import type { FlashcardResponse } from "~/types/entity";
 
 type State = {
-    flashcards: Flashcard[];
+    flashcards: FlashcardResponse[];
     total: number;
     totalToReview: number;
     collectionTotal: number;
@@ -19,20 +19,20 @@ export const useFlashcardStore = defineStore("flashcard", {
         {
             this.totalToReview = this.total;
         },
-        prepend(item: Flashcard)
+        prepend(item: FlashcardResponse)
         {
             this.flashcards = [item, ...this.flashcards];
         },
-        append(item: Flashcard)
+        append(item: FlashcardResponse)
         {
             this.flashcards = [...this.flashcards, item];
         },
-        delete(item: Flashcard)
+        delete(item: FlashcardResponse)
         {
             const itemToRemove = this.flashcards.findIndex(f => f.id === item.id);
             this.flashcards.splice(itemToRemove, 1);
         },
-        update(id: number, item: Partial<Flashcard>)
+        update(id: number, item: Partial<FlashcardResponse>)
         {
             const itemToUpdate = this.flashcards.findIndex(f => f.id === id);
             if (itemToUpdate !== -1)

@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { Flashcard } from "~/types/entity";
+import type { FlashcardResponse } from "~/types/entity";
 import type { BadgeColor } from "#ui/types";
 
 const props = defineProps<{
-    flashcard: Flashcard;
+    flashcard: FlashcardResponse;
 }>();
 
 const difficulty = computed<{ label: string; color: BadgeColor }>(() =>

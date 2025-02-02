@@ -1,6 +1,6 @@
 import { ModalSessionIntroduction } from "#components";
 import { usePracticeStore } from "~/stores/practice.store";
-import type { Collection } from "~/types/session";
+import type { Collection } from "~/types/utils";
 
 export default async (collection?: Collection, enableIntroductionModal: boolean = true) =>
 {

@@ -1,15 +1,15 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Topic } from "~/types/entity";
-import type { Filter, Pagination } from "~/types/core";
+import type { TopicRequest, TopicResponse } from "~/types/entity";
+import type { Filter, Pagination } from "~/types/request";
 import type { TopicCountCriteria } from "~/types/countCriteria";
 import type { FlashcardSession } from "~/types/session";
-import type { Paginated } from "~/types/request";
+import type { Paginated } from "~/types/response";
 
 export class TopicRepository extends AbstractRepository
 {
     async findAll(pagination: Partial<Pagination>, filter: Filter | null = null)
     {
-        return this.fetch<Paginated<Topic[]>>("/topics", {
+        return this.fetch<Paginated<TopicResponse[]>>("/topics", {
             method: "GET",
             query: {
                 ...pagination,
@@ -20,14 +20,14 @@ export class TopicRepository extends AbstractRepository
 
     async find(id: number)
     {
-        return this.fetch<Topic>(`/topics/${id}`, {
+        return this.fetch<TopicResponse>(`/topics/${id}`, {
             method: "GET"
         });
     };
 
-    async create(topic: Partial<Topic>)
+    async create(topic: Partial<TopicRequest>)
     {
-        return this.fetch<Topic>("/topics", {
+        return this.fetch<TopicResponse>("/topics", {
             method: "POST",
             body: {
                 ...topic
@@ -42,9 +42,9 @@ export class TopicRepository extends AbstractRepository
         });
     };
 
-    async partialUpdate(id: number, updatedElement: Partial<Topic>)
+    async partialUpdate(id: number, updatedElement: Partial<TopicRequest>)
     {
-        return this.fetch<Topic>(`/topics/${id}`, {
+        return this.fetch<TopicResponse>(`/topics/${id}`, {
             method: "PATCH",
             body: {
                 ...updatedElement
@@ -52,7 +52,7 @@ export class TopicRepository extends AbstractRepository
         });
     };
 
-    async update(id: number, updatedElement: Topic)
+    async update(id: number, updatedElement: TopicRequest)
     {
         return this.partialUpdate(id, updatedElement);
     };
@@ -73,7 +73,7 @@ export class TopicRepository extends AbstractRepository
 
     async findRecent()
     {
-        return this.fetch<Topic[]>(`/topics/recent`, {
+        return this.fetch<TopicResponse[]>(`/topics/recent`, {
             method: "GET"
         });
     }

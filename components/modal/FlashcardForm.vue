@@ -133,13 +133,13 @@
 
 <script setup lang="ts">
 import { z } from "zod";
-import type { Topic, Unit, Flashcard } from "~/types/entity";
+import type { TopicResponse, UnitResponse, FlashcardResponse } from "~/types/entity";
 import type { FormSubmitEvent } from "#ui/types";
 
 const props = defineProps<{
-    topic?: Topic;
-    unit?: Unit;
-    flashcard?: Flashcard;
+    topic?: TopicResponse;
+    unit?: UnitResponse;
+    flashcard?: FlashcardResponse;
 }>();
 
 const modal = useModal();
@@ -160,10 +160,10 @@ const schema = z.object({
 type Schema = z.output<typeof schema>;
 
 const formProvider = reactive({
-    topics: [] as Topic[],
+    topics: [] as TopicResponse[],
     loadingTopics: false,
     searchTopicQuery: safeValue(props.topic?.name, ""),
-    units: [] as Unit[],
+    units: [] as UnitResponse[],
     loadingUnits: false,
     searchUnitQuery: safeValue(props.unit?.name, ""),
     loadingForm: false,
@@ -249,12 +249,13 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
         }
         else
         {
-            const flashcard = await repository.flashcard.create(event.data.unitId, {
+            const flashcard = await repository.flashcard.create({
                 front: event.data.front,
                 back: event.data.back,
                 details: event.data.details,
                 help: event.data.help,
-                favorite: false
+                favorite: false,
+                unit: event.data.unitId
             });
 
             flashcardStore.incrementFlashcardsToReview();
@@ -264,7 +265,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
                 flashcardStore.prepend(flashcard);
                 flashcardStore.incrementCollectionTotal();
             }
-            
+
             flashcardStore.incrementTotal();
         }
 

@@ -1,11 +1,11 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Auth, ResetPassword, User } from "~/types/entity";
+import type { Auth, ResetPassword, UserResponse } from "~/types/entity";
 
 export class AuthRepository extends AbstractRepository
 {
     async login(authData: Pick<Auth, "identifier" | "rawPassword">)
     {
-        return this.fetch<User>("/auth/login", {
+        return this.fetch<UserResponse>("/auth/login", {
             method: "POST",
             body: {
                 identifier: authData.identifier,
@@ -16,7 +16,7 @@ export class AuthRepository extends AbstractRepository
 
     async register(authData: Pick<Auth, "email" | "rawPassword" | "username">)
     {
-        return this.fetch<User>("/auth/register", {
+        return this.fetch<UserResponse>("/auth/register", {
             method: "POST",
             body: {
                 email: authData.email,
@@ -36,13 +36,13 @@ export class AuthRepository extends AbstractRepository
         });
     }
 
-    async proceedResetPassword(authData: Pick<ResetPassword, "token" | "password">)
+    async proceedResetPassword(authData: Pick<ResetPassword, "token" | "rawPassword">)
     {
-        return this.fetch<User>("/auth/reset-password/proceed", {
+        return this.fetch<UserResponse>("/auth/reset-password/proceed", {
             method: "POST",
             body: {
                 token: authData.token,
-                rawPassword: authData.password,
+                rawPassword: authData.rawPassword,
             }
         });
     };

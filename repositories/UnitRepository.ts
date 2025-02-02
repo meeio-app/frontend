@@ -1,15 +1,15 @@
 import { AbstractRepository } from "./AbstractRepository";
-import type { Unit } from "~/types/entity";
-import type { Filter, Pagination } from "~/types/core";
+import type { UnitRequest, UnitResponse } from "~/types/entity";
+import type { Filter, Pagination } from "~/types/request";
 import type { UnitCountCriteria } from "~/types/countCriteria";
 import type { FlashcardSession } from "~/types/session";
-import type { Paginated } from "~/types/request";
+import type { Paginated } from "~/types/response";
 
 export class UnitRepository extends AbstractRepository
 {
     async findAll(pagination: Partial<Pagination>, filter: Filter | null = null)
     {
-        return this.fetch<Paginated<Unit[]>>(`/units`, {
+        return this.fetch<Paginated<UnitResponse[]>>(`/units`, {
             method: "GET",
             query: {
                 ...pagination,
@@ -20,18 +20,17 @@ export class UnitRepository extends AbstractRepository
 
     async find(id: number)
     {
-        return this.fetch<Unit>(`/units/${id}`, {
+        return this.fetch<UnitResponse>(`/units/${id}`, {
             method: "GET"
         });
     };
 
-    async create(topicId: number, unit: Partial<Unit>)
+    async create(unit: Partial<UnitRequest>)
     {
-        return this.fetch<Unit>("/units", {
+        return this.fetch<UnitResponse>("/units", {
             method: "POST",
             body: {
-                ...unit,
-                topic: topicId
+                ...unit
             }
         });
     };
@@ -43,9 +42,9 @@ export class UnitRepository extends AbstractRepository
         });
     };
 
-    async partialUpdate(id: number, updatedElement: Partial<Unit>)
+    async partialUpdate(id: number, updatedElement: Partial<UnitRequest>)
     {
-        return this.fetch<Unit>(`/units/${id}`, {
+        return this.fetch<UnitResponse>(`/units/${id}`, {
             method: "PATCH",
             body: {
                 ...updatedElement
@@ -53,14 +52,14 @@ export class UnitRepository extends AbstractRepository
         });
     };
 
-    async update(id: number, updatedElement: Unit)
+    async update(id: number, updatedElement: UnitRequest)
     {
         return this.partialUpdate(id, updatedElement);
     };
 
     async findByTopic(topicId: number, pagination: Partial<Pagination>, filter: Filter | null = null)
     {
-        return this.fetch<Paginated<Unit[]>>(`/topics/${topicId}/units`, {
+        return this.fetch<Paginated<UnitResponse[]>>(`/topics/${topicId}/units`, {
             method: "GET",
             query: {
                 ...pagination,
@@ -85,14 +84,14 @@ export class UnitRepository extends AbstractRepository
 
     async findRecents()
     {
-        return this.fetch<Unit[]>(`/units/recent`, {
+        return this.fetch<UnitResponse[]>(`/units/recent`, {
             method: "GET"
         });
     };
 
     async recentByTopic(id: number)
     {
-        return this.fetch<Paginated<Unit[]>>(`/topics/${id}/units/recent`, {
+        return this.fetch<Paginated<UnitResponse[]>>(`/topics/${id}/units/recent`, {
             method: "GET"
         });
     };
