@@ -171,7 +171,7 @@ const saveSecurity = async () =>
     try
     {
         await repository.user.partialUpdateMe({
-            password: securityFormData.password,
+            rawPassword: securityFormData.password,
         });
 
         useStandardToast("success", {

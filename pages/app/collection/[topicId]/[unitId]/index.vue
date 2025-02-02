@@ -265,12 +265,13 @@ const showCreateUpdateModal = (row?: FlashcardResponse) =>
 
 const duplicateRow = async (row: FlashcardResponse) =>
 {
-    const response = await repository.flashcard.create(unitStore.collectionSelectedUnit!.id, {
+    const response = await repository.flashcard.create({
         front: row.front,
         back: row.back,
         details: row.details,
         help: row.help,
-        favorite: false
+        favorite: false,
+        unit: unitStore.collectionSelectedUnit!.id,
     });
 
     flashcardStore.prepend(response);

@@ -1,4 +1,4 @@
-import type { Collection } from "~/types/session";
+import type { Collection } from "~/types/utils";
 
 export default async (collection?: Collection) =>
 {

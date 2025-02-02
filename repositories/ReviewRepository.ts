@@ -24,13 +24,13 @@ export class ReviewRepository extends AbstractRepository
         });
     }
 
-    async countGroupByDate()
-    {
-        return this.fetch<{ date: string; total: number }[]>("/reviews/count/group_by_date", {
-            method: "GET",
-            query: {
-                period: "last_30_days"
-            }
-        });
-    }
+    // async countGroupByDate()
+    // {
+    //     return this.fetch<{ date: string; total: number }[]>("/reviews/count/group_by_date", {
+    //         method: "GET",
+    //         query: {
+    //             period: "last_30_days"
+    //         }
+    //     });
+    // }
 }

@@ -154,7 +154,10 @@ const sendResponse = async (validationType: Validation) =>
         practiceStore.currentGrade = GradeType.again;
     }
 
-    await repository.flashcard.review(practiceStore.currentFlashcard.id, practiceStore.currentGrade!, practiceStore.session!.id);
+    await repository.flashcard.review(practiceStore.currentFlashcard.id, {
+        grade: practiceStore.currentGrade!,
+        session: practiceStore.session!.id
+    });
     practiceStore.addGrade();
     reviewStore.incrementTotal();
     flashcardStore.decrementFlashcardsToReview();

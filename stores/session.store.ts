@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import type { Session } from "~/types/entity";
+import type { SessionResponse } from "~/types/entity";
 
 type State = {
     total: number;
-    sessions: Session[];
+    sessions: SessionResponse[];
 };
 
 export const useSessionStore = defineStore("session", {

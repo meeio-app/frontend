@@ -160,10 +160,11 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
         }
         else
         {
-            const unit = await repository.unit.create(event.data.topicId, {
+            const unit = await repository.unit.create({
                 name: event.data.name,
                 description: event.data.description,
-                favorite: false
+                favorite: false,
+                topic: event.data.topicId
             });
 
             if (topicStore.collectionSelectedTopic && topicStore.collectionSelectedTopic.id === event.data.topicId)

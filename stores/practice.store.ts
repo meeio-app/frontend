@@ -1,10 +1,10 @@
 import { DateTime } from "luxon";
 import { defineStore } from "pinia";
-import { GradeType, type FlashcardResponse, type Grade, type Session } from "~/types/entity";
+import { GradeType, type FlashcardResponse, type Grade, type SessionResponse } from "~/types/entity";
 import type { Answer, FlashcardSession } from "~/types/session";
 
 type State = {
-    session?: Session;
+    session?: SessionResponse;
     flashcards: FlashcardResponse[];
     currentFlashcardIndex: number;
     currentGrade?: Grade;

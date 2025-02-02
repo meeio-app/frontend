@@ -272,10 +272,11 @@ const showCreateUpdateModal = (row?: UnitResponse) =>
 
 const duplicateRow = async (row: UnitResponse) =>
 {
-    const response = await repository.unit.create(topicStore.collectionSelectedTopic!.id, {
+    const response = await repository.unit.create({
         name: row.name,
         description: row.description,
-        favorite: false
+        favorite: false,
+        topic: topicStore.collectionSelectedTopic!.id
     });
 
     unitStore.prepend(response);

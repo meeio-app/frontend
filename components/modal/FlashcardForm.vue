@@ -249,12 +249,13 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) =>
         }
         else
         {
-            const flashcard = await repository.flashcard.create(event.data.unitId, {
+            const flashcard = await repository.flashcard.create({
                 front: event.data.front,
                 back: event.data.back,
                 details: event.data.details,
                 help: event.data.help,
-                favorite: false
+                favorite: false,
+                unit: event.data.unitId
             });
 
             flashcardStore.incrementFlashcardsToReview();

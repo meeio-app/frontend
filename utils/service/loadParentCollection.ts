@@ -1,5 +1,5 @@
 import type { TopicResponse, UnitResponse } from "~/types/entity";
-import type { Collection } from "~/types/session";
+import type { Collection } from "~/types/utils";
 
 export default async <T extends TopicResponse | UnitResponse>(collection: Collection): Promise<T | undefined> =>
 {

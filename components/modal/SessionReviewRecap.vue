@@ -30,11 +30,11 @@
 
 <script setup lang="ts">
 import { DateTime } from "luxon";
-import { GradeType, type ReviewResponse, type Session } from "~/types/entity";
+import { GradeType, type ReviewResponse, type SessionResponse } from "~/types/entity";
 import type { BadgeColor } from "#ui/types";
 
 const props = defineProps<{
-    session: Session;
+    session: SessionResponse;
 }>();
 
 const repository = useRepository();

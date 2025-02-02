@@ -38,8 +38,8 @@ export class UserRepository extends AbstractRepository
         return this.fetch<UserResponse>(`/users/settings`, {
             method: "POST",
             body: {
-                name,
-                value
+                name: name,
+                value: value
             }
         });
     };
