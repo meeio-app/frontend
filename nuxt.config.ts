@@ -77,7 +77,7 @@ export default defineNuxtConfig({
         host: process.env.UMAMI_HOST,
         autoTrack: true,
         logErrors: true,
-        enabled: true,
+        enabled: false,
         ignoreLocalhost: true,
         // proxy: "cloak",
         // ignoreLocalhost: true,
